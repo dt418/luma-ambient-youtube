@@ -4,6 +4,7 @@ Ngày: 2026-10-03. Môi trường: Windows, Node.js 24.20.0, Chrome phiên đang
 
 ## Passed
 
+- Regression check after the popup-dialog layering fix: `npm run check` passed with 43/43 tests; new DOM coverage verifies YouTube's fixed popup container stacks above the ambient `ytd-app` layer. This verifies the CSS contract, not a live subscription action.
 - Baseline trước lượt UI/FPS mới: `npm run check` qua, 42/42 tests, build MV3 và package checks qua.
 - Settings normalize, ghi nhiều tab không mất tùy chọn, race khi đọc storage lần đầu, preset không ghi đè toggle tab khác.
 - Letterbox/pillarbox/all-black, hysteresis, smoothing, highlight cap, video chưa sẵn sàng và SecurityError.

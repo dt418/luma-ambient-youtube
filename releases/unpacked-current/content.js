@@ -1,7 +1,128 @@
 "use strict";
 (() => {
   // raw-css:C:\Users\Thanh\Documents\Codex\2026-10-03\ha\outputs\github-pages\luma-ambient-youtube\src\content\page-surfaces.css
-  var page_surfaces_default = 'html.luma-active,\nhtml.luma-active body {\n  background: var(--luma-page-backdrop) !important;\n}\nhtml.luma-active ytd-app {\n  --yt-spec-base-background: var(--luma-surface);\n  --yt-spec-raised-background: var(--luma-surface);\n  --yt-spec-menu-background: var(--luma-surface);\n  background: transparent !important;\n  position: relative;\n  z-index: 1;\n}\nhtml.luma-active ytd-popup-container,\nhtml.luma-active ytd-popup-container ytd-multi-page-menu-renderer,\nhtml.luma-active ytd-popup-container ytd-notification-menu-renderer,\nhtml.luma-active ytd-popup-container ytd-menu-popup-renderer {\n  --yt-spec-base-background: var(--luma-surface);\n  --yt-spec-raised-background: var(--luma-surface);\n  --yt-spec-menu-background: var(--luma-surface);\n  --yt-spec-10-percent-layer: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.3);\n  --paper-dialog-background-color: var(--luma-surface);\n}\nhtml.luma-active ytd-watch-flexy {\n  background: transparent !important;\n}\nhtml.luma-active #cinematics {\n  visibility: hidden !important;\n}\nhtml.luma-active #primary #below,\nhtml.luma-active #secondary-inner,\nhtml.luma-active #masthead-container,\nhtml.luma-active #guide-content,\nhtml.luma-active #playlist #items,\nhtml.luma-active #playlist .header,\nhtml.luma-active #playlist ytd-playlist-panel-video-renderer[selected],\nhtml.luma-active #playlist #header-contents,\nhtml.luma-active\n  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]\n  #content,\nhtml.luma-active\n  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]\n  ytd-engagement-panel-title-header-renderer\n  #header,\nhtml.luma-active .ytSearchboxComponentInputBoxDark,\nhtml.luma-active .ytSearchboxComponentSearchButtonDark,\nhtml.luma-active\n  ytd-popup-container\n  tp-yt-iron-dropdown[opened]\n  #contentWrapper,\nhtml.luma-active ytd-popup-container ytd-multi-page-menu-renderer,\nhtml.luma-active ytd-popup-container ytd-multi-page-menu-renderer #container,\nhtml.luma-active ytd-popup-container ytd-notification-menu-renderer,\nhtml.luma-active ytd-popup-container ytd-notification-menu-renderer #items,\nhtml.luma-active ytd-popup-container ytd-menu-popup-renderer,\nhtml.luma-active ytd-popup-container tp-yt-paper-dialog {\n  background: var(--luma-surface) !important;\n  backdrop-filter: blur(var(--luma-surface-blur, 18px));\n  -webkit-backdrop-filter: blur(var(--luma-surface-blur, 18px));\n  border-color: rgba(var(--luma-video-accent, 126, 187, 218), 0.32) !important;\n  transition:\n    background-color 180ms ease,\n    backdrop-filter 180ms ease;\n}\nhtml.luma-active #guide-content,\nhtml.luma-active #playlist #items,\nhtml.luma-active #playlist .header,\nhtml.luma-active #playlist ytd-playlist-panel-video-renderer[selected],\nhtml.luma-active\n  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]\n  #content,\nhtml.luma-active\n  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]\n  ytd-engagement-panel-title-header-renderer\n  #header,\nhtml.luma-active .ytSearchboxComponentInputBoxDark {\n  background: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.5) !important;\n}\nhtml.luma-active #playlist .header #header-contents {\n  background: transparent !important;\n}\nhtml.luma-active #playlist ytd-playlist-panel-video-renderer[selected] {\n  box-shadow: inset 3px 0 0 rgba(var(--luma-video-accent, 126, 187, 218), 0.8);\n}\nhtml.luma-active #primary #below {\n  border-radius: 16px;\n  margin-top: 12px;\n  padding: 16px;\n  box-sizing: border-box;\n}\nhtml.luma-active #secondary-inner {\n  border-radius: 18px;\n  padding: 12px;\n  box-sizing: border-box;\n}\nhtml.luma-active ytd-watch-metadata #description.item {\n  border-radius: 12px;\n  box-sizing: border-box;\n  background-color: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.32) !important;\n  transition:\n    background-color 180ms ease,\n    backdrop-filter 180ms ease;\n}\nhtml.luma-active ytd-watch-metadata #description.item:hover,\nhtml.luma-active ytd-watch-metadata #description.item:focus-within {\n  background-color: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.5) !important;\n  backdrop-filter: blur(var(--luma-surface-blur, 18px));\n  -webkit-backdrop-filter: blur(var(--luma-surface-blur, 18px));\n}\n.luma-fullscreen .html5-video-container,\n.luma-fullscreen .ytp-chrome-bottom,\n.luma-fullscreen .ytp-chrome-top,\n.luma-fullscreen .ytp-caption-window-container {\n  z-index: 2 !important;\n}\n.luma-fullscreen {\n  background: transparent !important;\n}\n';
+  var page_surfaces_default = `html.luma-active,
+html.luma-active body {
+  background: var(--luma-page-backdrop) !important;
+}
+html.luma-active ytd-app {
+  --yt-spec-base-background: var(--luma-surface);
+  --yt-spec-raised-background: var(--luma-surface);
+  --yt-spec-menu-background: var(--luma-surface);
+  background: transparent !important;
+  position: relative;
+  z-index: 1;
+}
+/* Keep YouTube's own menus and confirmation dialogs above the ambient page layer. */
+html.luma-active ytd-popup-container {
+  z-index: 2147483003 !important;
+}
+html.luma-active ytd-popup-container,
+html.luma-active ytd-popup-container ytd-multi-page-menu-renderer,
+html.luma-active ytd-popup-container ytd-notification-menu-renderer,
+html.luma-active ytd-popup-container ytd-menu-popup-renderer {
+  --yt-spec-base-background: var(--luma-surface);
+  --yt-spec-raised-background: var(--luma-surface);
+  --yt-spec-menu-background: var(--luma-surface);
+  --yt-spec-10-percent-layer: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.3);
+  --paper-dialog-background-color: var(--luma-surface);
+}
+html.luma-active ytd-watch-flexy {
+  background: transparent !important;
+}
+html.luma-active #cinematics {
+  visibility: hidden !important;
+}
+html.luma-active #primary #below,
+html.luma-active #secondary-inner,
+html.luma-active #masthead-container,
+html.luma-active #guide-content,
+html.luma-active #playlist #items,
+html.luma-active #playlist .header,
+html.luma-active #playlist ytd-playlist-panel-video-renderer[selected],
+html.luma-active #playlist #header-contents,
+html.luma-active
+  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]
+  #content,
+html.luma-active
+  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]
+  ytd-engagement-panel-title-header-renderer
+  #header,
+html.luma-active .ytSearchboxComponentInputBoxDark,
+html.luma-active .ytSearchboxComponentSearchButtonDark,
+html.luma-active
+  ytd-popup-container
+  tp-yt-iron-dropdown[opened]
+  #contentWrapper,
+html.luma-active ytd-popup-container ytd-multi-page-menu-renderer,
+html.luma-active ytd-popup-container ytd-multi-page-menu-renderer #container,
+html.luma-active ytd-popup-container ytd-notification-menu-renderer,
+html.luma-active ytd-popup-container ytd-notification-menu-renderer #items,
+html.luma-active ytd-popup-container ytd-menu-popup-renderer,
+html.luma-active ytd-popup-container tp-yt-paper-dialog {
+  background: var(--luma-surface) !important;
+  backdrop-filter: blur(var(--luma-surface-blur, 18px));
+  -webkit-backdrop-filter: blur(var(--luma-surface-blur, 18px));
+  border-color: rgba(var(--luma-video-accent, 126, 187, 218), 0.32) !important;
+  transition:
+    background-color 180ms ease,
+    backdrop-filter 180ms ease;
+}
+html.luma-active #guide-content,
+html.luma-active #playlist #items,
+html.luma-active #playlist .header,
+html.luma-active #playlist ytd-playlist-panel-video-renderer[selected],
+html.luma-active
+  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]
+  #content,
+html.luma-active
+  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]
+  ytd-engagement-panel-title-header-renderer
+  #header,
+html.luma-active .ytSearchboxComponentInputBoxDark {
+  background: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.5) !important;
+}
+html.luma-active #playlist .header #header-contents {
+  background: transparent !important;
+}
+html.luma-active #playlist ytd-playlist-panel-video-renderer[selected] {
+  box-shadow: inset 3px 0 0 rgba(var(--luma-video-accent, 126, 187, 218), 0.8);
+}
+html.luma-active #primary #below {
+  border-radius: 16px;
+  margin-top: 12px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+html.luma-active #secondary-inner {
+  border-radius: 18px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+html.luma-active ytd-watch-metadata #description.item {
+  border-radius: 12px;
+  box-sizing: border-box;
+  background-color: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.32) !important;
+  transition:
+    background-color 180ms ease,
+    backdrop-filter 180ms ease;
+}
+html.luma-active ytd-watch-metadata #description.item:hover,
+html.luma-active ytd-watch-metadata #description.item:focus-within {
+  background-color: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.5) !important;
+  backdrop-filter: blur(var(--luma-surface-blur, 18px));
+  -webkit-backdrop-filter: blur(var(--luma-surface-blur, 18px));
+}
+.luma-fullscreen .html5-video-container,
+.luma-fullscreen .ytp-chrome-bottom,
+.luma-fullscreen .ytp-chrome-top,
+.luma-fullscreen .ytp-caption-window-container {
+  z-index: 2 !important;
+}
+.luma-fullscreen {
+  background: transparent !important;
+}
+`;
 
   // src/shared/settings.ts
   var DEFAULTS = {

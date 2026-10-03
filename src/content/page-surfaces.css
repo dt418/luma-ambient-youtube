@@ -10,6 +10,10 @@ html.luma-active ytd-app {
   position: relative;
   z-index: 1;
 }
+/* Keep YouTube's own menus and confirmation dialogs above the ambient page layer. */
+html.luma-active ytd-popup-container {
+  z-index: 2147483003 !important;
+}
 html.luma-active ytd-popup-container,
 html.luma-active ytd-popup-container ytd-multi-page-menu-renderer,
 html.luma-active ytd-popup-container ytd-notification-menu-renderer,
