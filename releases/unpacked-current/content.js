@@ -740,6 +740,7 @@ html.luma-active ytd-watch-metadata #description.item:focus-within {
   }
 
   // src/content/controller.ts
+  var STATUS_UPDATE_INTERVAL_MS = 100;
   var ContentController = class {
     constructor(store, onBinding = () => {
     }) {
@@ -993,7 +994,7 @@ html.luma-active ytd-watch-metadata #description.item:focus-within {
         if (frame) this.renderer.render(frame);
         const quality = this.governor.record(performance.now() - start, t);
         this.configure();
-        if (frame && (instant || t - this.lastStatus > 750)) {
+        if (frame && (instant || t - this.lastStatus >= STATUS_UPDATE_INTERVAL_MS)) {
           this.lastStatus = t;
           this.status.publish({
             state: this.video.paused ? "paused" : "playing",

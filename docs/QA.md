@@ -4,6 +4,7 @@ Ngày: 2026-10-03. Môi trường: Windows, Node.js 24.20.0, Chrome phiên đang
 
 ## Passed
 
+- Lượt sửa độ trễ palette chữ/icon: `npm run check` đạt 49/49 tests; regression test đổi accent trong 100 ms. Palette/status giao diện được cập nhật mỗi 100 ms thay cho 750 ms; giới hạn render ambient vẫn tối đa 30 FPS.
 - Lượt sửa Home/Shorts: `npm run check` đạt 48/48 tests (sau đó bổ sung test đảm bảo Home không lấy mẫu miniplayer), TypeScript, MV3 build và package validation. Watch và Shorts (`#shorts-player`) đồng bộ màu video lên trang và sidebar. Home dùng nền ambient tĩnh với accent trung tính; không phân tích video feed, preview hay miniplayer.
 - Regression check after the popup-dialog layering fix: `npm run check` passed with 43/43 tests; new DOM coverage verifies YouTube's fixed popup container stacks above the ambient `ytd-app` layer. This verifies the CSS contract, not a live subscription action.
 - Baseline trước lượt UI/FPS mới: `npm run check` qua, 42/42 tests, build MV3 và package checks qua.

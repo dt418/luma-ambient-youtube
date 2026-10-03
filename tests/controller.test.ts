@@ -70,6 +70,64 @@ it("resamples paused color settings and applies surface blur immediately", async
     vi.unstubAllGlobals();
   }
 });
+it("publishes a changed video accent without the old 750ms wait", async () => {
+  let pixel: [number, number, number] = [220, 35, 25];
+  vi.spyOn(performance, "now").mockReturnValue(1000);
+  vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
+    clearRect() {},
+    createRadialGradient() {
+      return { addColorStop() {} };
+    },
+    fillRect() {},
+    drawImage() {},
+    getImageData(_x: number, _y: number, w: number, h: number) {
+      const data = new Uint8ClampedArray(w * h * 4);
+      for (let i = 0; i < data.length; i += 4) {
+        data[i] = pixel[0];
+        data[i + 1] = pixel[1];
+        data[i + 2] = pixel[2];
+        data[i + 3] = 255;
+      }
+      return { data };
+    },
+  } as any);
+  vi.stubGlobal(
+    "ResizeObserver",
+    class {
+      observe() {}
+      disconnect() {}
+    },
+  );
+  vi.stubGlobal(
+    "IntersectionObserver",
+    class {
+      observe() {}
+      disconnect() {}
+    },
+  );
+  window.history.replaceState({}, "", "/watch?v=changing-color");
+  document.body.innerHTML = '<div id="movie_player"><video></video></div>';
+  Object.defineProperties(document.querySelector("video")!, {
+    readyState: { value: 2 },
+    videoWidth: { value: 160 },
+    videoHeight: { value: 90 },
+  });
+  const storage = store(),
+    c = new ContentController(storage);
+  try {
+    await c.start();
+    const before = c.status.current.accent;
+    pixel = [20, 70, 225];
+    Reflect.get(c, "sampleOnce").call(c, 1100);
+    expect(c.status.current.accent).not.toEqual(before);
+  } finally {
+    c.destroy();
+    storage.destroy();
+    document.body.innerHTML = "";
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
+  }
+});
 it("recovers once when a new media source replaces an unreadable source on the same element", async () => {
   let bad = true,
     reads = 0;

@@ -8,6 +8,9 @@ import { ambientPalette } from "../ui/appearance";
 import { Scheduler } from "../ambient/scheduler";
 import { PerformanceGovernor, QUALITY } from "../ambient/governor";
 import { findPlayer } from "./youtube-adapter";
+
+const STATUS_UPDATE_INTERVAL_MS = 100;
+
 export class ContentController {
   readonly status = new StatusSource(() => this.retry());
   private settings = normalizeSettings(null);
@@ -304,7 +307,10 @@ export class ContentController {
       if (frame) this.renderer.render(frame);
       const quality = this.governor.record(performance.now() - start, t);
       this.configure();
-      if (frame && (instant || t - this.lastStatus > 750)) {
+      if (
+        frame &&
+        (instant || t - this.lastStatus >= STATUS_UPDATE_INTERVAL_MS)
+      ) {
         this.lastStatus = t;
         this.status.publish({
           state: this.video.paused ? "paused" : "playing",
