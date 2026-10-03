@@ -82,7 +82,7 @@ export class Canvas2DRenderer implements AmbientRenderer {
     ctx.clearRect(0, 0, c.width, c.height);
     const b = this.bounds;
     const spread =
-      100 + Math.min(origin.width, origin.height) * 0.24 * s.spread;
+      130 + Math.min(origin.width, origin.height) * 0.34 * s.spread;
     for (const edge of EDGES) {
       if (!s.edges[edge]) continue;
       const colors = frame.edges[edge];
@@ -104,8 +104,9 @@ export class Canvas2DRenderer implements AmbientRenderer {
           py = (y - origin.top) * sy,
           radius = spread * Math.max(sx, sy);
         const g = ctx.createRadialGradient(px, py, 0, px, py, radius);
-        g.addColorStop(0, `rgba(${rgb.join(", ")}, ${s.intensity * 0.65})`);
-        g.addColorStop(0.42, `rgba(${rgb.join(", ")}, ${s.intensity * 0.4})`);
+        g.addColorStop(0, `rgba(${rgb.join(", ")}, ${s.intensity * 0.75})`);
+        g.addColorStop(0.42, `rgba(${rgb.join(", ")}, ${s.intensity * 0.55})`);
+        g.addColorStop(0.78, `rgba(${rgb.join(", ")}, ${s.intensity * 0.18})`);
         g.addColorStop(1, `rgba(${rgb.join(", ")}, 0)`);
         ctx.fillStyle = g;
         ctx.fillRect(px - radius, py - radius, radius * 2, radius * 2);

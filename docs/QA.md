@@ -4,6 +4,7 @@ Ngày: 2026-10-03. Môi trường: Windows, Node.js 24.20.0, Chrome phiên đang
 
 ## Passed
 
+- Lượt tăng độ hiện diện ambient: kiểm thử khóa bán kính halo rộng trên 350 px ở fixture 1000×800 và alpha không dưới 0,08 tại 78% bán kính. `npm run check` đạt 50/50 tests; không thay blur hay giá trị đã lưu của người dùng.
 - Lượt làm rõ ambient trên Shorts: `npm run check` đạt 49/49 tests. Các wrapper thực tế của player Shorts được kiểm tra và ép trong suốt để không che canvas ambient; không đổi nền blur nằm bên trong chính video.
 - Lượt giảm lag playlist và bỏ trần FPS: `npm run check` đạt 48/48 tests. Bộ cuộn playlist không còn `backdrop-filter`/transition; scheduler theo từng frame video (`requestVideoFrameCallback`) thay vì timer cap 30 FPS, fallback `requestAnimationFrame`; preset tự hạ độ chi tiết khi máy bận. Đã xác nhận scheduler xử lý 60 frame/giây trong regression test.
 - Lượt sửa độ trễ palette chữ/icon trước đó: palette/status được cập nhật mỗi 100 ms thay cho 750 ms; giới hạn FPS sau đó được bỏ trong lượt tối ưu playlist.

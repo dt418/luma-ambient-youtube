@@ -306,7 +306,7 @@ html.luma-active ytd-watch-metadata #description.item:focus-within {
       const sx = c.width / Math.max(1, origin.width), sy = c.height / Math.max(1, origin.height);
       ctx.clearRect(0, 0, c.width, c.height);
       const b = this.bounds;
-      const spread = 100 + Math.min(origin.width, origin.height) * 0.24 * s.spread;
+      const spread = 130 + Math.min(origin.width, origin.height) * 0.34 * s.spread;
       for (const edge of EDGES) {
         if (!s.edges[edge]) continue;
         const colors = frame.edges[edge];
@@ -316,8 +316,9 @@ html.luma-active ytd-watch-metadata #description.item:focus-within {
           const y = edge === "top" ? b.top : edge === "bottom" ? b.bottom : b.top + b.height * fraction;
           const px = (x - origin.left) * sx, py = (y - origin.top) * sy, radius = spread * Math.max(sx, sy);
           const g = ctx.createRadialGradient(px, py, 0, px, py, radius);
-          g.addColorStop(0, `rgba(${rgb.join(", ")}, ${s.intensity * 0.65})`);
-          g.addColorStop(0.42, `rgba(${rgb.join(", ")}, ${s.intensity * 0.4})`);
+          g.addColorStop(0, `rgba(${rgb.join(", ")}, ${s.intensity * 0.75})`);
+          g.addColorStop(0.42, `rgba(${rgb.join(", ")}, ${s.intensity * 0.55})`);
+          g.addColorStop(0.78, `rgba(${rgb.join(", ")}, ${s.intensity * 0.18})`);
           g.addColorStop(1, `rgba(${rgb.join(", ")}, 0)`);
           ctx.fillStyle = g;
           ctx.fillRect(px - radius, py - radius, radius * 2, radius * 2);

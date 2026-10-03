@@ -120,3 +120,54 @@ it("owns exactly one noninteractive canvas and cleans it up idempotently", () =>
   host.remove();
   vi.restoreAllMocks();
 });
+
+it("keeps the ambient halo broad and visible away from the video edge", () => {
+  const radii: number[] = [];
+  const stops: Array<[number, string]> = [];
+  vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
+    clearRect() {},
+    createRadialGradient(
+      _x0: number,
+      _y0: number,
+      _r0: number,
+      _x1: number,
+      _y1: number,
+      radius: number,
+    ) {
+      radii.push(radius);
+      return {
+        addColorStop(offset: number, color: string) {
+          stops.push([offset, color]);
+        },
+      };
+    },
+    fillRect() {},
+  } as any);
+
+  const host = document.createElement("div");
+  host.getBoundingClientRect = () => new DOMRect(0, 0, 1000, 800);
+  document.body.append(host);
+  const renderer = new Canvas2DRenderer();
+  renderer.start(host, {
+    ...normalizeSettings(null),
+    effectiveQuality: "balanced",
+  });
+  renderer.resize(new DOMRect(200, 0, 600, 800));
+  renderer.render({
+    timestamp: 0,
+    edges: { left: [[200, 80, 40]], right: [], top: [], bottom: [] },
+    accent: [200, 80, 40],
+    luminance: 0.2,
+    changed: true,
+  });
+
+  expect(radii[0]).toBeGreaterThan(350);
+  expect(parseFloat(stops[0][1].split(",").at(-1)!)).toBeGreaterThan(0.4);
+  const outerStop = stops.find(([offset]) => offset >= 0.75);
+  expect(outerStop).toBeDefined();
+  expect(parseFloat(outerStop![1].split(",").at(-1)!)).toBeGreaterThan(0.08);
+
+  renderer.destroy();
+  host.remove();
+  vi.restoreAllMocks();
+});
