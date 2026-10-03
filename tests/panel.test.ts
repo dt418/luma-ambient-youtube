@@ -26,6 +26,7 @@ it("shows only blur before Advanced and synchronizes ambient tint and motion", a
     root.querySelectorAll<HTMLInputElement>('input[type="range"]'),
   ).filter((e) => !e.closest("details"));
   expect(simple.map((e) => e.dataset.setting)).toEqual(["blur"]);
+  expect(root.querySelector('[data-setting="fpsLimit"]')).toBeNull();
   expect(
     root.querySelector("[data-preset]")!.closest("details"),
   ).not.toBeNull();

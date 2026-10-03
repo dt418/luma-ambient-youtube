@@ -16,7 +16,6 @@ export const DEFAULTS: Settings = {
   blackBarSensitivity: 0.5,
   performanceMode: "auto",
   performanceCeiling: "ultra",
-  fpsLimit: 30,
   sampleWidth: 160,
   floatingControl: true,
   reducedMotion: "system",
@@ -32,7 +31,6 @@ const bounds: Record<string, [number, number]> = {
   brightness: [0, 1.5],
   highlightLimit: [0.3, 1],
   blackBarSensitivity: [0, 1],
-  fpsLimit: [1, 30],
   sampleWidth: [32, 192],
 };
 const choices: Record<string, string[]> = {

@@ -106,6 +106,6 @@ document.querySelector("#navigate")!.addEventListener("click", () => {
 });
 controller.status.subscribe((s) => {
   document.querySelector("#metrics")!.textContent =
-    `${s.state} · ${s.quality} · Mục tiêu ${s.fps} FPS · Canvas: ${document.querySelectorAll(".luma-ambient-canvas").length}`;
+    `${s.state} · ${s.quality} · ${s.fps || "—"} FPS · Canvas: ${document.querySelectorAll(".luma-ambient-canvas").length}`;
 });
 void controller.start();

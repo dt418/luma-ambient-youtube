@@ -263,19 +263,11 @@ export class ContentController {
   private configure() {
     const q = QUALITY[this.governor.quality];
     this.sampler?.setSampleWidth(Math.min(q.width, this.settings.sampleWidth));
-    this.scheduler.setFps(this.targetFps());
     this.renderer?.updateSettings({
       ...this.effectiveSettings(),
       effectiveQuality: this.governor.quality,
     });
     if (this.renderer) this.updateSurface();
-  }
-  private targetFps() {
-    const qualityFps =
-      this.settings.performanceMode === "auto"
-        ? 30
-        : QUALITY[this.governor.quality].fps;
-    return Math.min(qualityFps, this.settings.fpsLimit, 30);
   }
   private sampleOnce(t: number, instant = false) {
     if (
@@ -315,7 +307,7 @@ export class ContentController {
         this.status.publish({
           state: this.video.paused ? "paused" : "playing",
           quality,
-          fps: this.targetFps(),
+          fps: this.scheduler.fps,
           accent: frame.accent,
           luminance: frame.luminance,
         });

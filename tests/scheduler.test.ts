@@ -1,21 +1,34 @@
 // @vitest-environment jsdom
-import { it, expect, vi } from "vitest";
+import { it, expect } from "vitest";
 import { Scheduler } from "../src/ambient/scheduler";
-it.each([12, 24, 30])("throttles to %i fps and cancels pending work", (fps) => {
-  vi.useFakeTimers();
-  const v = { currentTime: 0 } as HTMLVideoElement;
+
+it("processes every decoded video frame above 30 fps and cancels pending work", () => {
+  let id = 0;
+  const callbacks = new Map<number, VideoFrameRequestCallback>();
+  const video = {
+    currentTime: 0,
+    requestVideoFrameCallback(callback: VideoFrameRequestCallback) {
+      const next = ++id;
+      callbacks.set(next, callback);
+      return next;
+    },
+    cancelVideoFrameCallback(requestId: number) {
+      callbacks.delete(requestId);
+    },
+  } as HTMLVideoElement;
   let calls = 0;
   const s = new Scheduler();
-  s.setFps(fps);
-  s.start(v, () => calls++);
-  for (let t = 0; t < 1000; t += 10) {
-    v.currentTime = t / 1000;
-    vi.advanceTimersByTime(10);
+  s.start(video, () => calls++);
+  for (let frame = 0; frame < 60 && callbacks.size; frame++) {
+    const [requestId, callback] = callbacks.entries().next().value!;
+    callbacks.delete(requestId);
+    video.currentTime = (frame + 1) / 60;
+    callback(frame * (1000 / 60), {
+      mediaTime: video.currentTime,
+    } as VideoFrameCallbackMetadata);
   }
-  expect(calls).toBeLessThanOrEqual(fps);
-  expect(calls).toBeGreaterThan(0);
   s.pause();
-  expect(vi.getTimerCount()).toBe(0);
+  expect(callbacks.size).toBe(0);
   s.destroy();
-  vi.useRealTimers();
+  expect(calls).toBe(60);
 });

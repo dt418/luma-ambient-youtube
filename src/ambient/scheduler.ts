@@ -1,20 +1,15 @@
 export class Scheduler {
   private video: HTMLVideoElement | undefined;
   private callback: ((time: number) => void) | undefined;
-  private pending: number | undefined;
+  private videoFrameRequest: number | undefined;
+  private animationFrameRequest: number | undefined;
+  private fallbackTimer: number | undefined;
   private running = false;
-  private fps = 24;
-  private last = -Infinity;
   private mediaTime = -1;
-  setFps(fps: number) {
-    const next = Math.max(1, Math.min(30, fps));
-    if (next === this.fps) return;
-    this.fps = next;
-    if (this.pending !== undefined) {
-      clearTimeout(this.pending);
-      this.pending = undefined;
-      this.queue();
-    }
+  private lastFrameTime = -1;
+  private currentFps = 0;
+  get fps() {
+    return this.currentFps;
   }
   start(video: HTMLVideoElement, onFrame: (time: number) => void) {
     this.destroy();
@@ -23,18 +18,38 @@ export class Scheduler {
     this.resume();
   }
   private queue() {
-    if (!this.running || this.pending !== undefined) return;
-    this.pending = window.setTimeout(
-      () => this.frame(performance.now()),
-      1000 / this.fps,
+    if (!this.running || this.hasPending()) return;
+    if (this.video && "requestVideoFrameCallback" in this.video) {
+      this.videoFrameRequest = this.video.requestVideoFrameCallback((time) => {
+        this.videoFrameRequest = undefined;
+        this.frame(time);
+      });
+    } else if (typeof window.requestAnimationFrame === "function") {
+      this.animationFrameRequest = window.requestAnimationFrame((time) => {
+        this.animationFrameRequest = undefined;
+        this.frame(time);
+      });
+    } else {
+      this.fallbackTimer = window.setTimeout(() => {
+        this.fallbackTimer = undefined;
+        this.frame(performance.now());
+      }, 1000 / 60);
+    }
+  }
+  private hasPending() {
+    return (
+      this.videoFrameRequest !== undefined ||
+      this.animationFrameRequest !== undefined ||
+      this.fallbackTimer !== undefined
     );
   }
   private frame = (time: number) => {
-    this.pending = undefined;
     if (!this.running) return;
     const media = this.video?.currentTime ?? 0;
-    if (time - this.last >= 1000 / this.fps - 0.1 && media !== this.mediaTime) {
-      this.last = time;
+    if (media !== this.mediaTime) {
+      if (this.lastFrameTime >= 0 && time > this.lastFrameTime)
+        this.currentFps = Math.round(1000 / (time - this.lastFrameTime));
+      this.lastFrameTime = time;
       this.mediaTime = media;
       this.callback?.(time);
     }
@@ -42,8 +57,16 @@ export class Scheduler {
   };
   pause() {
     this.running = false;
-    if (this.pending !== undefined) clearTimeout(this.pending);
-    this.pending = undefined;
+    if (this.videoFrameRequest !== undefined)
+      this.video?.cancelVideoFrameCallback(this.videoFrameRequest);
+    if (this.animationFrameRequest !== undefined)
+      window.cancelAnimationFrame(this.animationFrameRequest);
+    if (this.fallbackTimer !== undefined) clearTimeout(this.fallbackTimer);
+    this.videoFrameRequest =
+      this.animationFrameRequest =
+      this.fallbackTimer =
+        undefined;
+    this.lastFrameTime = -1;
   }
   resume() {
     if (!this.video) return;
@@ -54,7 +77,7 @@ export class Scheduler {
     this.pause();
     this.video = undefined;
     this.callback = undefined;
-    this.last = -Infinity;
     this.mediaTime = -1;
+    this.currentFps = 0;
   }
 }

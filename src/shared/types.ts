@@ -19,7 +19,6 @@ export interface Settings {
   blackBarSensitivity: number;
   performanceMode: "auto" | Quality;
   performanceCeiling: Quality;
-  fpsLimit: number;
   sampleWidth: number;
   floatingControl: boolean;
   reducedMotion: "system" | "on";

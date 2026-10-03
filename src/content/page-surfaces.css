@@ -41,7 +41,6 @@ html.luma-active #primary #below,
 html.luma-active #secondary-inner,
 html.luma-active #masthead-container,
 html.luma-active #guide-content,
-html.luma-active #playlist #items,
 html.luma-active #playlist .header,
 html.luma-active #playlist ytd-playlist-panel-video-renderer[selected],
 html.luma-active #playlist #header-contents,
@@ -73,7 +72,6 @@ html.luma-active ytd-popup-container tp-yt-paper-dialog {
     backdrop-filter 180ms ease;
 }
 html.luma-active #guide-content,
-html.luma-active #playlist #items,
 html.luma-active #playlist .header,
 html.luma-active #playlist ytd-playlist-panel-video-renderer[selected],
 html.luma-active
@@ -85,6 +83,12 @@ html.luma-active
   #header,
 html.luma-active .ytSearchboxComponentInputBoxDark {
   background: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.5) !important;
+}
+html.luma-active #playlist #items {
+  background: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.5) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: none !important;
 }
 html.luma-active #playlist .header #header-contents {
   background: transparent !important;

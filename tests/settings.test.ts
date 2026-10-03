@@ -15,14 +15,14 @@ describe("settings safety", () => {
     const s = normalizeSettings({
       intensity: 5,
       blur: NaN,
-      fpsLimit: 90,
+      fpsLimit: 30,
       enabled: "false",
       preset: "invalid",
       secret: "x",
     });
     expect(s.intensity).toBe(1);
     expect(s.blur).toBe(48);
-    expect(s.fpsLimit).toBe(30);
+    expect(s).not.toHaveProperty("fpsLimit");
     expect(s.enabled).toBe(true);
     expect(s.preset).toBe("cinematic");
     expect(s).not.toHaveProperty("secret");

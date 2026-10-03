@@ -4,13 +4,14 @@ Ngày: 2026-10-03. Môi trường: Windows, Node.js 24.20.0, Chrome phiên đang
 
 ## Passed
 
-- Lượt sửa độ trễ palette chữ/icon: `npm run check` đạt 49/49 tests; regression test đổi accent trong 100 ms. Palette/status giao diện được cập nhật mỗi 100 ms thay cho 750 ms; giới hạn render ambient vẫn tối đa 30 FPS.
+- Lượt giảm lag playlist và bỏ trần FPS: `npm run check` đạt 48/48 tests. Bộ cuộn playlist không còn `backdrop-filter`/transition; scheduler theo từng frame video (`requestVideoFrameCallback`) thay vì timer cap 30 FPS, fallback `requestAnimationFrame`; preset tự hạ độ chi tiết khi máy bận. Đã xác nhận scheduler xử lý 60 frame/giây trong regression test.
+- Lượt sửa độ trễ palette chữ/icon trước đó: palette/status được cập nhật mỗi 100 ms thay cho 750 ms; giới hạn FPS sau đó được bỏ trong lượt tối ưu playlist.
 - Lượt sửa Home/Shorts: `npm run check` đạt 48/48 tests (sau đó bổ sung test đảm bảo Home không lấy mẫu miniplayer), TypeScript, MV3 build và package validation. Watch và Shorts (`#shorts-player`) đồng bộ màu video lên trang và sidebar. Home dùng nền ambient tĩnh với accent trung tính; không phân tích video feed, preview hay miniplayer.
 - Regression check after the popup-dialog layering fix: `npm run check` passed with 43/43 tests; new DOM coverage verifies YouTube's fixed popup container stacks above the ambient `ytd-app` layer. This verifies the CSS contract, not a live subscription action.
 - Baseline trước lượt UI/FPS mới: `npm run check` qua, 42/42 tests, build MV3 và package checks qua.
 - Settings normalize, ghi nhiều tab không mất tùy chọn, race khi đọc storage lần đầu, preset không ghi đè toggle tab khác.
 - Letterbox/pillarbox/all-black, hysteresis, smoothing, highlight cap, video chưa sẵn sàng và SecurityError.
-- Scheduler tối đa 30 FPS bằng timer độc lập tần số màn hình; các mode thủ công đặt 12/24/30 FPS. Auto khởi đầu Balanced, governor điều chỉnh độ chi tiết lấy mẫu theo thời gian xử lý.
+- Scheduler theo frame video mới; governor tự giảm/tăng độ chi tiết lấy màu theo thời gian xử lý.
 - Một canvas, dọn tài nguyên, không redraw frame tĩnh khi setting không đổi.
 - DOM: SPA watch→home→watch, đổi video, pending callback cancel, reparent fullscreen/exit, bỏ mutation không liên quan.
 - Back-forward cache: pagehide cleanup và pageshow persisted khởi tạo lại, không listener trùng.

@@ -18,7 +18,6 @@
     blackBarSensitivity: 0.5,
     performanceMode: "auto",
     performanceCeiling: "ultra",
-    fpsLimit: 30,
     sampleWidth: 160,
     floatingControl: true,
     reducedMotion: "system",
@@ -34,7 +33,6 @@
     brightness: [0, 1.5],
     highlightLimit: [0.3, 1],
     blackBarSensitivity: [0, 1],
-    fpsLimit: [1, 30],
     sampleWidth: [32, 192]
   };
   var choices = {
@@ -213,7 +211,7 @@
     current = {
       state: "idle",
       quality: "balanced",
-      fps: 30,
+      fps: 0,
       accent: [126, 187, 218],
       luminance: 0.2
     };
@@ -331,7 +329,7 @@
     </section><section class="luma-pro-group"><h3>\xC1nh s\xE1ng</h3>${range("spread", "\u0110\u1ED9 lan", "M\u1EDF r\u1ED9ng \xE1nh s\xE1ng ra ph\xEDa ngo\xE0i video.", 0, 2, 0.05)}${range("fadeMs", "Chuy\u1EC3n m\xE0u", "Th\u1EDDi gian \u0111\u1EC3 m\xE0u m\u1EDBi h\xF2a v\xE0o m\xE0u tr\u01B0\u1EDBc.", 0, 1e3, 10)}<div class="luma-directions">${EDGES.map((e, i) => `<label class="luma-check">${["Tr\xEAn", "Ph\u1EA3i", "D\u01B0\u1EDBi", "Tr\xE1i"][i]}<input type="checkbox" data-edge="${e}"></label>`).join("")}</div></section>
     <section class="luma-pro-group"><h3>M\xE0u s\u1EAFc</h3>${range("saturation", "\u0110\u1ED9 b\xE3o h\xF2a", "\u0110\u1ED9 \u0111\u1EADm m\xE0u c\u1EE7a \xE1nh s\xE1ng, kh\xF4ng \u0111\u1ED5i m\xE0u video.", 0, 2, 0.05)}${range("vibrance", "S\u1EAFc \u0111\u1ED9", "T\u0103ng m\xE0u nh\u1EA1t m\u1ED9t c\xE1ch nh\u1EB9 nh\xE0ng.", 0, 1, 0.05)}${range("brightness", "\u0110\u1ED9 s\xE1ng", "\u0110i\u1EC1u ch\u1EC9nh \u0111\u1ED9 s\xE1ng c\u1EE7a \xE1nh s\xE1ng xung quanh.", 0, 1.5, 0.05)}${range("highlightLimit", "Gi\u1EDBi h\u1EA1n v\xF9ng s\xE1ng", "Gi\u1EEF c\xE1c c\u1EA3nh tr\u1EAFng kh\xF4ng qu\xE1 ch\xF3i.", 0.3, 1, 0.05)}</section>
     <section class="luma-pro-group"><h3>Khung h\xECnh</h3>${check("blackBarDetection", "B\u1ECF vi\u1EC1n \u0111en khi l\u1EA5y m\xE0u")}${range("blackBarSensitivity", "\u0110\u1ED9 nh\u1EA1y vi\u1EC1n \u0111en", "Ch\u1EC9 \u1EA3nh h\u01B0\u1EDFng v\xF9ng l\u1EA5y m\xE0u, kh\xF4ng c\u1EAFt video.", 0, 1, 0.05)}</section>
-    <section class="luma-pro-group"><h3>Hi\u1EC7u n\u0103ng</h3><div class="luma-field"><label class="luma-label" for="luma-mode">Ch\u1EA5t l\u01B0\u1EE3ng</label><select id="luma-mode" data-setting="performanceMode"><option value="auto">T\u1EF1 \u0111\u1ED9ng \xB7 Khuy\xEAn d\xF9ng</option><option value="eco">Eco \xB7 Ti\u1EBFt ki\u1EC7m</option><option value="balanced">Balanced \xB7 C\xE2n b\u1EB1ng</option><option value="ultra">Ultra \xB7 M\u01B0\u1EE3t h\u01A1n</option></select></div><div class="luma-field"><label class="luma-label" for="luma-ceiling">M\u1EE9c cao nh\u1EA5t khi t\u1EF1 \u0111\u1ED9ng</label><select id="luma-ceiling" data-setting="performanceCeiling"><option value="eco">Eco</option><option value="balanced">Balanced</option><option value="ultra">Ultra</option></select></div>${range("fpsLimit", "Gi\u1EDBi h\u1EA1n c\u1EADp nh\u1EADt", "T\u1ED1i \u0111a 30 FPS, \u0111\u1ED9c l\u1EADp t\u1EA7n s\u1ED1 qu\xE9t m\xE0n h\xECnh.", 1, 30, 1)}${range("sampleWidth", "\u0110\u1ED9 chi ti\u1EBFt l\u1EA5y m\xE0u", "S\u1ED1 pixel ngang t\u1ED1i \u0111a d\xF9ng \u0111\u1EC3 \u0111\u1ECDc m\xE0u video.", 32, 192, 8)}${check("floatingControl", "Hi\u1EC7n n\xFAt tr\xEAn YouTube")}<label class="luma-check">Gi\u1EA3m chuy\u1EC3n \u0111\u1ED9ng<input type="checkbox" data-reduced-motion></label><p class="luma-caption">Lu\xF4n t\xF4n tr\u1ECDng c\xE0i \u0111\u1EB7t gi\u1EA3m chuy\u1EC3n \u0111\u1ED9ng c\u1EE7a h\u1EC7 th\u1ED1ng.</p></section></details>
+    <section class="luma-pro-group"><h3>Hi\u1EC7u n\u0103ng</h3><div class="luma-field"><label class="luma-label" for="luma-mode">Ch\u1EA5t l\u01B0\u1EE3ng</label><select id="luma-mode" data-setting="performanceMode"><option value="auto">T\u1EF1 \u0111\u1ED9ng \xB7 Khuy\xEAn d\xF9ng</option><option value="eco">Eco \xB7 Ti\u1EBFt ki\u1EC7m</option><option value="balanced">Balanced \xB7 C\xE2n b\u1EB1ng</option><option value="ultra">Ultra \xB7 Chi ti\u1EBFt h\u01A1n</option></select></div><div class="luma-field"><label class="luma-label" for="luma-ceiling">M\u1EE9c cao nh\u1EA5t khi t\u1EF1 \u0111\u1ED9ng</label><select id="luma-ceiling" data-setting="performanceCeiling"><option value="eco">Eco</option><option value="balanced">Balanced</option><option value="ultra">Ultra</option></select></div>${range("sampleWidth", "\u0110\u1ED9 chi ti\u1EBFt l\u1EA5y m\xE0u", "S\u1ED1 pixel ngang t\u1ED1i \u0111a d\xF9ng \u0111\u1EC3 \u0111\u1ECDc m\xE0u video.", 32, 192, 8)}${check("floatingControl", "Hi\u1EC7n n\xFAt tr\xEAn YouTube")}<label class="luma-check">Gi\u1EA3m chuy\u1EC3n \u0111\u1ED9ng<input type="checkbox" data-reduced-motion></label><p class="luma-caption">Luma theo t\u1EEBng khung h\xECnh m\u1EDBi c\u1EE7a video; ch\u1EA5t l\u01B0\u1EE3ng t\u1EF1 h\u1EA1 khi m\xE1y b\u1EADn.</p></section></details>
     <p class="luma-message" data-message role="status" aria-live="polite" hidden></p><button type="button" class="luma-retry" data-action="retry" hidden>Th\u1EED l\u1EA1i</button><footer class="luma-footer"><button type="button" data-action="reset">\u0110\u1EB7t l\u1EA1i m\u1EB7c \u0111\u1ECBnh</button><button type="button" data-action="privacy" aria-expanded="false">Ri\xEAng t\u01B0 tr\xEAn m\xE1y \u2197</button></footer><p class="luma-privacy" hidden>Kh\xF4ng theo d\xF5i, kh\xF4ng g\u1EEDi khung h\xECnh ho\u1EB7c l\u1ECBch s\u1EED xem. C\xE0i \u0111\u1EB7t \u0111\u01B0\u1EE3c l\u01B0u trong Chrome tr\xEAn m\xE1y n\xE0y.</p>`;
     root.append(style, panel);
     const abort = new AbortController();
@@ -360,7 +358,7 @@
       panel.querySelectorAll("[data-output]").forEach((o) => {
         const k = o.dataset.output;
         const v = s[k];
-        o.value = k === "intensity" ? `${Math.round(v * 100)}%` : k === "blur" ? `${v}px` : k === "fadeMs" ? `${v}ms` : ["fpsLimit", "sampleWidth"].includes(k) ? String(Math.round(v)) : `${Math.round(v * 100)}%`;
+        o.value = k === "intensity" ? `${Math.round(v * 100)}%` : k === "blur" ? `${v}px` : k === "fadeMs" ? `${v}ms` : k === "sampleWidth" ? String(Math.round(v)) : `${Math.round(v * 100)}%`;
       });
     };
     const error = () => {

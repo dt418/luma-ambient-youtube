@@ -40,3 +40,19 @@ it("applies the ambient surface to Home and Shorts page containers and sidebar",
   expect(surfaces).toContain("html.luma-active ytd-shorts");
   expect(surfaces).toContain("var(--luma-page-backdrop)");
 });
+
+it("keeps the playlist scroll container free of backdrop blur", () => {
+  document.documentElement.classList.add("luma-active");
+  const style = document.createElement("style");
+  style.id = "luma-surface-test";
+  style.textContent = surfaces;
+  document.head.append(style);
+  document.body.innerHTML = '<div id="playlist"><div id="items"></div></div>';
+
+  const scroller = document.querySelector("#items");
+  const rule = Array.from(style.sheet.cssRules).find((candidate) =>
+    scroller.matches(candidate.selectorText),
+  );
+  expect(rule?.style.getPropertyValue("backdrop-filter")).toBe("none");
+  expect(rule?.style.getPropertyValue("transition")).toBe("none");
+});

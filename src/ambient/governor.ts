@@ -1,8 +1,8 @@
 import type { Quality, Settings } from "../shared/types";
-export const QUALITY: Record<Quality, { fps: number; width: number }> = {
-  eco: { fps: 12, width: 48 },
-  balanced: { fps: 24, width: 96 },
-  ultra: { fps: 30, width: 160 },
+export const QUALITY: Record<Quality, { width: number }> = {
+  eco: { width: 48 },
+  balanced: { width: 96 },
+  ultra: { width: 160 },
 };
 const order: Quality[] = ["eco", "balanced", "ultra"];
 export class PerformanceGovernor {

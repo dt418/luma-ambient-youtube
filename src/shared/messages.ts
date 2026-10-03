@@ -5,7 +5,7 @@ export class StatusSource {
   current: Status = {
     state: "idle",
     quality: "balanced",
-    fps: 30,
+    fps: 0,
     accent: [126, 187, 218],
     luminance: 0.2,
   };
