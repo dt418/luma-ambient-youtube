@@ -1,0 +1,117 @@
+html.luma-active,
+html.luma-active body {
+  background: var(--luma-page-backdrop) !important;
+}
+html.luma-active ytd-app {
+  --yt-spec-base-background: var(--luma-surface);
+  --yt-spec-raised-background: var(--luma-surface);
+  --yt-spec-menu-background: var(--luma-surface);
+  background: transparent !important;
+  position: relative;
+  z-index: 1;
+}
+html.luma-active ytd-popup-container,
+html.luma-active ytd-popup-container ytd-multi-page-menu-renderer,
+html.luma-active ytd-popup-container ytd-notification-menu-renderer,
+html.luma-active ytd-popup-container ytd-menu-popup-renderer {
+  --yt-spec-base-background: var(--luma-surface);
+  --yt-spec-raised-background: var(--luma-surface);
+  --yt-spec-menu-background: var(--luma-surface);
+  --yt-spec-10-percent-layer: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.3);
+  --paper-dialog-background-color: var(--luma-surface);
+}
+html.luma-active ytd-watch-flexy {
+  background: transparent !important;
+}
+html.luma-active #cinematics {
+  visibility: hidden !important;
+}
+html.luma-active #primary #below,
+html.luma-active #secondary-inner,
+html.luma-active #masthead-container,
+html.luma-active #guide-content,
+html.luma-active #playlist #items,
+html.luma-active #playlist .header,
+html.luma-active #playlist ytd-playlist-panel-video-renderer[selected],
+html.luma-active #playlist #header-contents,
+html.luma-active
+  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]
+  #content,
+html.luma-active
+  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]
+  ytd-engagement-panel-title-header-renderer
+  #header,
+html.luma-active .ytSearchboxComponentInputBoxDark,
+html.luma-active .ytSearchboxComponentSearchButtonDark,
+html.luma-active
+  ytd-popup-container
+  tp-yt-iron-dropdown[opened]
+  #contentWrapper,
+html.luma-active ytd-popup-container ytd-multi-page-menu-renderer,
+html.luma-active ytd-popup-container ytd-multi-page-menu-renderer #container,
+html.luma-active ytd-popup-container ytd-notification-menu-renderer,
+html.luma-active ytd-popup-container ytd-notification-menu-renderer #items,
+html.luma-active ytd-popup-container ytd-menu-popup-renderer,
+html.luma-active ytd-popup-container tp-yt-paper-dialog {
+  background: var(--luma-surface) !important;
+  backdrop-filter: blur(var(--luma-surface-blur, 18px));
+  -webkit-backdrop-filter: blur(var(--luma-surface-blur, 18px));
+  border-color: rgba(var(--luma-video-accent, 126, 187, 218), 0.32) !important;
+  transition:
+    background-color 180ms ease,
+    backdrop-filter 180ms ease;
+}
+html.luma-active #guide-content,
+html.luma-active #playlist #items,
+html.luma-active #playlist .header,
+html.luma-active #playlist ytd-playlist-panel-video-renderer[selected],
+html.luma-active
+  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]
+  #content,
+html.luma-active
+  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]
+  ytd-engagement-panel-title-header-renderer
+  #header,
+html.luma-active .ytSearchboxComponentInputBoxDark {
+  background: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.5) !important;
+}
+html.luma-active #playlist .header #header-contents {
+  background: transparent !important;
+}
+html.luma-active #playlist ytd-playlist-panel-video-renderer[selected] {
+  box-shadow: inset 3px 0 0 rgba(var(--luma-video-accent, 126, 187, 218), 0.8);
+}
+html.luma-active #primary #below {
+  border-radius: 16px;
+  margin-top: 12px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+html.luma-active #secondary-inner {
+  border-radius: 18px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+html.luma-active ytd-watch-metadata #description.item {
+  border-radius: 12px;
+  box-sizing: border-box;
+  background-color: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.32) !important;
+  transition:
+    background-color 180ms ease,
+    backdrop-filter 180ms ease;
+}
+html.luma-active ytd-watch-metadata #description.item:hover,
+html.luma-active ytd-watch-metadata #description.item:focus-within {
+  background-color: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.5) !important;
+  backdrop-filter: blur(var(--luma-surface-blur, 18px));
+  -webkit-backdrop-filter: blur(var(--luma-surface-blur, 18px));
+}
+.luma-fullscreen .html5-video-container,
+.luma-fullscreen .ytp-chrome-bottom,
+.luma-fullscreen .ytp-chrome-top,
+.luma-fullscreen .ytp-caption-window-container {
+  z-index: 2 !important;
+}
+.luma-fullscreen {
+  background: transparent !important;
+}
