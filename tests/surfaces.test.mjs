@@ -33,3 +33,10 @@ it("keeps YouTube popup dialogs above the ambient page layer", () => {
 
   expect(popupLayer).toBeGreaterThan(appLayer);
 });
+
+it("applies the ambient surface to Home and Shorts page containers and sidebar", () => {
+  expect(surfaces).toContain("html.luma-active #guide-content");
+  expect(surfaces).toContain("html.luma-active ytd-browse");
+  expect(surfaces).toContain("html.luma-active ytd-shorts");
+  expect(surfaces).toContain("var(--luma-page-backdrop)");
+});

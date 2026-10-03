@@ -27,6 +27,13 @@ html.luma-active ytd-popup-container ytd-menu-popup-renderer {
 html.luma-active ytd-watch-flexy {
   background: transparent !important;
 }
+html.luma-active ytd-browse,
+html.luma-active ytd-browse #content,
+html.luma-active ytd-shorts,
+html.luma-active ytd-shorts #content,
+html.luma-active #shorts-container {
+  background: transparent !important;
+}
 html.luma-active #cinematics {
   visibility: hidden !important;
 }

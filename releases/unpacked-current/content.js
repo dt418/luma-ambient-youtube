@@ -30,6 +30,13 @@ html.luma-active ytd-popup-container ytd-menu-popup-renderer {
 html.luma-active ytd-watch-flexy {
   background: transparent !important;
 }
+html.luma-active ytd-browse,
+html.luma-active ytd-browse #content,
+html.luma-active ytd-shorts,
+html.luma-active ytd-shorts #content,
+html.luma-active #shorts-container {
+  background: transparent !important;
+}
 html.luma-active #cinematics {
   visibility: hidden !important;
 }
@@ -710,7 +717,18 @@ html.luma-active ytd-watch-metadata #description.item:focus-within {
   };
 
   // src/content/youtube-adapter.ts
-  function findPlayer(doc) {
+  function findPlayer(doc, pathname = doc.defaultView?.location.pathname ?? "/watch") {
+    if (pathname.startsWith("/shorts/")) {
+      const host2 = doc.querySelector("#shorts-player");
+      const video2 = host2?.querySelector(
+        "video.html5-main-video"
+      );
+      return video2 && host2 ? { video: video2, host: host2 } : null;
+    }
+    if (pathname === "/") {
+      return null;
+    }
+    if (pathname !== "/watch") return null;
     const main = doc.querySelector(
       "#movie_player video.html5-main-video"
     ) ?? doc.querySelector("#movie_player video");
@@ -790,7 +808,7 @@ html.luma-active ytd-watch-metadata #description.item:focus-within {
         passive: true
       });
       this.observer = new MutationObserver((records) => {
-        const relevant = "video,#movie_player,ytd-watch-flexy";
+        const relevant = "video,#movie_player,#shorts-player,#miniplayer,ytd-miniplayer,ytd-watch-flexy";
         if (!records.some(
           (r) => Array.from(r.addedNodes).concat(Array.from(r.removedNodes)).some(
             (n) => n instanceof Element && !n.closest("[data-luma-root]") && (n.matches(relevant) || n.querySelector(relevant))
@@ -807,20 +825,37 @@ html.luma-active ytd-watch-metadata #description.item:focus-within {
       this.reconcile();
     }
     reconcile() {
-      if (location.pathname !== "/watch") {
+      const pathname = location.pathname;
+      const isHome = pathname === "/";
+      const isSupported = isHome || pathname === "/watch" || pathname.startsWith("/shorts/");
+      if (!isSupported) {
         this.detach();
         this.status.publish({ ...this.status.current, state: "idle" });
         return;
       }
-      const target = findPlayer(document);
+      const target = findPlayer(document, pathname);
       if (!target) {
-        this.detach();
+        const keepPageSurface = isHome && this.settings.enabled;
+        if (this.video || this.renderer || !keepPageSurface && document.documentElement.classList.contains("luma-active"))
+          this.detach(keepPageSurface);
+        if (isHome && this.settings.enabled) {
+          if (this.status.current.accent.some(
+            (channel, i) => channel !== [126, 187, 218][i]
+          ))
+            this.status.publish({
+              ...this.status.current,
+              state: "idle",
+              accent: [126, 187, 218]
+            });
+          document.documentElement.classList.add("luma-active");
+          this.updateSurface();
+        }
         this.status.publish({ ...this.status.current, state: "idle" });
         return;
       }
       const fullscreen = document.fullscreenElement;
       const canvasHost = fullscreen ?? document.body;
-      if (target.video !== this.video || canvasHost !== this.renderHost) {
+      if (target.video !== this.video || target.host !== this.host || canvasHost !== this.renderHost) {
         this.detach();
         this.video = target.video;
         this.host = target.host;
@@ -1001,10 +1036,14 @@ html.luma-active ytd-watch-metadata #description.item:focus-within {
       if (this.renderer) this.updateSurface();
       if (this.video) this.renderer?.resize(this.video.getBoundingClientRect());
     }
-    removeRenderer() {
+    removeRenderer(preserveSurface = false) {
       this.surfaceKey = "";
       this.renderer?.destroy();
       this.renderer = void 0;
+      if (preserveSurface) {
+        this.renderHost?.classList.remove("luma-fullscreen");
+        return;
+      }
       document.documentElement.classList.remove("luma-active");
       document.documentElement.style.removeProperty("--luma-surface");
       document.documentElement.style.removeProperty("--luma-surface-rgb");
@@ -1013,9 +1052,9 @@ html.luma-active ytd-watch-metadata #description.item:focus-within {
       document.documentElement.style.removeProperty("--luma-surface-blur");
       this.renderHost?.classList.remove("luma-fullscreen");
     }
-    detach() {
+    detach(preserveSurface = false) {
       this.scheduler.destroy();
-      this.removeRenderer();
+      this.removeRenderer(preserveSurface);
       this.binding?.abort();
       this.resize?.disconnect();
       this.intersection?.disconnect();

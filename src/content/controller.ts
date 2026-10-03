@@ -79,7 +79,8 @@ export class ContentController {
       passive: true,
     });
     this.observer = new MutationObserver((records) => {
-      const relevant = "video,#movie_player,ytd-watch-flexy";
+      const relevant =
+        "video,#movie_player,#shorts-player,#miniplayer,ytd-miniplayer,ytd-watch-flexy";
       if (
         !records.some((r) =>
           Array.from(r.addedNodes)
@@ -103,20 +104,51 @@ export class ContentController {
     this.reconcile();
   }
   reconcile() {
-    if (location.pathname !== "/watch") {
+    const pathname = location.pathname;
+    const isHome = pathname === "/";
+    const isSupported =
+      isHome || pathname === "/watch" || pathname.startsWith("/shorts/");
+    if (!isSupported) {
       this.detach();
       this.status.publish({ ...this.status.current, state: "idle" });
       return;
     }
-    const target = findPlayer(document);
+    const target = findPlayer(document, pathname);
     if (!target) {
-      this.detach();
+      const keepPageSurface = isHome && this.settings.enabled;
+      if (
+        this.video ||
+        this.renderer ||
+        (!keepPageSurface &&
+          document.documentElement.classList.contains("luma-active"))
+      )
+        this.detach(keepPageSurface);
+      if (isHome && this.settings.enabled) {
+        // Home uses a stable tint instead of extracting colors from feed or
+        // miniplayer video. Other supported pages keep the live video palette.
+        if (
+          this.status.current.accent.some(
+            (channel, i) => channel !== [126, 187, 218][i],
+          )
+        )
+          this.status.publish({
+            ...this.status.current,
+            state: "idle",
+            accent: [126, 187, 218],
+          });
+        document.documentElement.classList.add("luma-active");
+        this.updateSurface();
+      }
       this.status.publish({ ...this.status.current, state: "idle" });
       return;
     }
     const fullscreen = document.fullscreenElement as HTMLElement | null;
     const canvasHost = fullscreen ?? document.body;
-    if (target.video !== this.video || canvasHost !== this.renderHost) {
+    if (
+      target.video !== this.video ||
+      target.host !== this.host ||
+      canvasHost !== this.renderHost
+    ) {
       this.detach();
       this.video = target.video;
       this.host = target.host;
@@ -325,10 +357,14 @@ export class ContentController {
     if (this.renderer) this.updateSurface();
     if (this.video) this.renderer?.resize(this.video.getBoundingClientRect());
   }
-  private removeRenderer() {
+  private removeRenderer(preserveSurface = false) {
     this.surfaceKey = "";
     this.renderer?.destroy();
     this.renderer = undefined;
+    if (preserveSurface) {
+      this.renderHost?.classList.remove("luma-fullscreen");
+      return;
+    }
     document.documentElement.classList.remove("luma-active");
     document.documentElement.style.removeProperty("--luma-surface");
     document.documentElement.style.removeProperty("--luma-surface-rgb");
@@ -337,9 +373,9 @@ export class ContentController {
     document.documentElement.style.removeProperty("--luma-surface-blur");
     this.renderHost?.classList.remove("luma-fullscreen");
   }
-  private detach() {
+  private detach(preserveSurface = false) {
     this.scheduler.destroy();
-    this.removeRenderer();
+    this.removeRenderer(preserveSurface);
     this.binding?.abort();
     this.resize?.disconnect();
     this.intersection?.disconnect();

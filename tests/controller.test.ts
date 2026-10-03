@@ -179,12 +179,54 @@ it("attaches once, rebinds replacement video and tears down outside watch", asyn
   expect(document.querySelectorAll(".luma-ambient-canvas")).toHaveLength(0);
   await storage.patch({ enabled: true });
   expect(document.querySelectorAll(".luma-ambient-canvas")).toHaveLength(1);
+  c.status.publish({ ...c.status.current, accent: [240, 40, 40] });
   window.history.replaceState({}, "", "/");
   c.reconcile();
   expect(document.querySelector(".luma-ambient-canvas")).toBeNull();
+  expect(document.documentElement.classList.contains("luma-active")).toBe(true);
+  expect(
+    document.documentElement.style.getPropertyValue("--luma-page-backdrop"),
+  ).not.toBe("");
+  expect(c.status.current.accent).toEqual([126, 187, 218]);
+  expect(
+    document.documentElement.style.getPropertyValue("--luma-video-accent"),
+  ).toBe("126,187,218");
+  await storage.patch({ enabled: false });
   expect(document.documentElement.classList.contains("luma-active")).toBe(
     false,
   );
+  c.destroy();
+  storage.destroy();
+  document.body.innerHTML = "";
+  vi.restoreAllMocks();
+  vi.unstubAllGlobals();
+});
+it("renders ambient around the active Shorts player", async () => {
+  vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({
+    clearRect() {},
+  } as any);
+  vi.stubGlobal(
+    "ResizeObserver",
+    class {
+      observe() {}
+      disconnect() {}
+    },
+  );
+  vi.stubGlobal(
+    "IntersectionObserver",
+    class {
+      observe() {}
+      disconnect() {}
+    },
+  );
+  window.history.replaceState({}, "", "/shorts/example");
+  document.body.innerHTML =
+    '<div id="shorts-player"><div class="html5-video-container"><video class="video-stream html5-main-video"></video></div><div class="ytp-right-controls"></div></div>';
+  const storage = store(),
+    c = new ContentController(storage);
+  await c.start();
+  expect(document.querySelectorAll(".luma-ambient-canvas")).toHaveLength(1);
+  expect(document.documentElement.classList.contains("luma-active")).toBe(true);
   c.destroy();
   storage.destroy();
   document.body.innerHTML = "";

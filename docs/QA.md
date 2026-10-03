@@ -4,6 +4,7 @@ Ngày: 2026-10-03. Môi trường: Windows, Node.js 24.20.0, Chrome phiên đang
 
 ## Passed
 
+- Lượt sửa Home/Shorts: `npm run check` đạt 48/48 tests (sau đó bổ sung test đảm bảo Home không lấy mẫu miniplayer), TypeScript, MV3 build và package validation. Watch và Shorts (`#shorts-player`) đồng bộ màu video lên trang và sidebar. Home dùng nền ambient tĩnh với accent trung tính; không phân tích video feed, preview hay miniplayer.
 - Regression check after the popup-dialog layering fix: `npm run check` passed with 43/43 tests; new DOM coverage verifies YouTube's fixed popup container stacks above the ambient `ytd-app` layer. This verifies the CSS contract, not a live subscription action.
 - Baseline trước lượt UI/FPS mới: `npm run check` qua, 42/42 tests, build MV3 và package checks qua.
 - Settings normalize, ghi nhiều tab không mất tùy chọn, race khi đọc storage lần đầu, preset không ghi đè toggle tab khác.
@@ -43,6 +44,7 @@ Ngày: 2026-10-03. Môi trường: Windows, Node.js 24.20.0, Chrome phiên đang
 3. Normal→theater→fullscreen→normal; video không đổi tỉ lệ và control không bị che.
 4. Pause/resume, seek, chuyển 10 video rồi Back/Forward; không canvas/UI trùng.
 5. Đổi tab rồi quay lại; video có letterbox/pillarbox và video dọc.
-6. YouTube Light/Dark; cảnh trắng; keyboard/focus; reduced motion và zoom.
+6. Watch/Shorts và sidebar đồng bộ màu video; Home chỉ có nền ambient tĩnh, không trích xuất màu.
+7. YouTube Light/Dark; cảnh trắng; keyboard/focus; reduced motion và zoom.
 
 Đây là bản v1 để dùng thử, chưa tuyên bố đạt toàn bộ live QA trong đặc tả hoặc đã phát hành Chrome Web Store.

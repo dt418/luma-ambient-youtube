@@ -1,7 +1,135 @@
 "use strict";
 (() => {
-  // raw-css:C:\Users\Thanh\Documents\Codex\2026-10-03\ha\work\implementation\src\content\page-surfaces.css
-  var page_surfaces_default = 'html.luma-active,\nhtml.luma-active body {\n  background: var(--luma-page-backdrop) !important;\n}\nhtml.luma-active ytd-app {\n  --yt-spec-base-background: var(--luma-surface);\n  --yt-spec-raised-background: var(--luma-surface);\n  --yt-spec-menu-background: var(--luma-surface);\n  background: transparent !important;\n  position: relative;\n  z-index: 1;\n}\nhtml.luma-active ytd-popup-container,\nhtml.luma-active ytd-popup-container ytd-multi-page-menu-renderer,\nhtml.luma-active ytd-popup-container ytd-notification-menu-renderer,\nhtml.luma-active ytd-popup-container ytd-menu-popup-renderer {\n  --yt-spec-base-background: var(--luma-surface);\n  --yt-spec-raised-background: var(--luma-surface);\n  --yt-spec-menu-background: var(--luma-surface);\n  --yt-spec-10-percent-layer: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.3);\n  --paper-dialog-background-color: var(--luma-surface);\n}\nhtml.luma-active ytd-watch-flexy {\n  background: transparent !important;\n}\nhtml.luma-active #cinematics {\n  visibility: hidden !important;\n}\nhtml.luma-active #primary #below,\nhtml.luma-active #secondary-inner,\nhtml.luma-active #masthead-container,\nhtml.luma-active #guide-content,\nhtml.luma-active #playlist #items,\nhtml.luma-active #playlist .header,\nhtml.luma-active #playlist ytd-playlist-panel-video-renderer[selected],\nhtml.luma-active #playlist #header-contents,\nhtml.luma-active\n  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]\n  #content,\nhtml.luma-active\n  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]\n  ytd-engagement-panel-title-header-renderer\n  #header,\nhtml.luma-active .ytSearchboxComponentInputBoxDark,\nhtml.luma-active .ytSearchboxComponentSearchButtonDark,\nhtml.luma-active\n  ytd-popup-container\n  tp-yt-iron-dropdown[opened]\n  #contentWrapper,\nhtml.luma-active ytd-popup-container ytd-multi-page-menu-renderer,\nhtml.luma-active ytd-popup-container ytd-multi-page-menu-renderer #container,\nhtml.luma-active ytd-popup-container ytd-notification-menu-renderer,\nhtml.luma-active ytd-popup-container ytd-notification-menu-renderer #items,\nhtml.luma-active ytd-popup-container ytd-menu-popup-renderer,\nhtml.luma-active ytd-popup-container tp-yt-paper-dialog {\n  background: var(--luma-surface) !important;\n  backdrop-filter: blur(var(--luma-surface-blur, 18px));\n  -webkit-backdrop-filter: blur(var(--luma-surface-blur, 18px));\n  border-color: rgba(var(--luma-video-accent, 126, 187, 218), 0.32) !important;\n  transition:\n    background-color 180ms ease,\n    backdrop-filter 180ms ease;\n}\nhtml.luma-active #guide-content,\nhtml.luma-active #playlist #items,\nhtml.luma-active #playlist .header,\nhtml.luma-active #playlist ytd-playlist-panel-video-renderer[selected],\nhtml.luma-active\n  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]\n  #content,\nhtml.luma-active\n  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]\n  ytd-engagement-panel-title-header-renderer\n  #header,\nhtml.luma-active .ytSearchboxComponentInputBoxDark {\n  background: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.5) !important;\n}\nhtml.luma-active #playlist .header #header-contents {\n  background: transparent !important;\n}\nhtml.luma-active #playlist ytd-playlist-panel-video-renderer[selected] {\n  box-shadow: inset 3px 0 0 rgba(var(--luma-video-accent, 126, 187, 218), 0.8);\n}\nhtml.luma-active #primary #below {\n  border-radius: 16px;\n  margin-top: 12px;\n  padding: 16px;\n  box-sizing: border-box;\n}\nhtml.luma-active #secondary-inner {\n  border-radius: 18px;\n  padding: 12px;\n  box-sizing: border-box;\n}\nhtml.luma-active ytd-watch-metadata #description.item {\n  border-radius: 12px;\n  box-sizing: border-box;\n  background-color: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.32) !important;\n  transition:\n    background-color 180ms ease,\n    backdrop-filter 180ms ease;\n}\nhtml.luma-active ytd-watch-metadata #description.item:hover,\nhtml.luma-active ytd-watch-metadata #description.item:focus-within {\n  background-color: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.5) !important;\n  backdrop-filter: blur(var(--luma-surface-blur, 18px));\n  -webkit-backdrop-filter: blur(var(--luma-surface-blur, 18px));\n}\n.luma-fullscreen .html5-video-container,\n.luma-fullscreen .ytp-chrome-bottom,\n.luma-fullscreen .ytp-chrome-top,\n.luma-fullscreen .ytp-caption-window-container {\n  z-index: 2 !important;\n}\n.luma-fullscreen {\n  background: transparent !important;\n}\n';
+  // raw-css:C:\Users\Thanh\Documents\Codex\2026-10-03\ha\outputs\github-pages\luma-ambient-youtube\src\content\page-surfaces.css
+  var page_surfaces_default = `html.luma-active,
+html.luma-active body {
+  background: var(--luma-page-backdrop) !important;
+}
+html.luma-active ytd-app {
+  --yt-spec-base-background: var(--luma-surface);
+  --yt-spec-raised-background: var(--luma-surface);
+  --yt-spec-menu-background: var(--luma-surface);
+  background: transparent !important;
+  position: relative;
+  z-index: 1;
+}
+/* Keep YouTube's own menus and confirmation dialogs above the ambient page layer. */
+html.luma-active ytd-popup-container {
+  z-index: 2147483003 !important;
+}
+html.luma-active ytd-popup-container,
+html.luma-active ytd-popup-container ytd-multi-page-menu-renderer,
+html.luma-active ytd-popup-container ytd-notification-menu-renderer,
+html.luma-active ytd-popup-container ytd-menu-popup-renderer {
+  --yt-spec-base-background: var(--luma-surface);
+  --yt-spec-raised-background: var(--luma-surface);
+  --yt-spec-menu-background: var(--luma-surface);
+  --yt-spec-10-percent-layer: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.3);
+  --paper-dialog-background-color: var(--luma-surface);
+}
+html.luma-active ytd-watch-flexy {
+  background: transparent !important;
+}
+html.luma-active ytd-browse,
+html.luma-active ytd-browse #content,
+html.luma-active ytd-shorts,
+html.luma-active ytd-shorts #content,
+html.luma-active #shorts-container {
+  background: transparent !important;
+}
+html.luma-active #cinematics {
+  visibility: hidden !important;
+}
+html.luma-active #primary #below,
+html.luma-active #secondary-inner,
+html.luma-active #masthead-container,
+html.luma-active #guide-content,
+html.luma-active #playlist #items,
+html.luma-active #playlist .header,
+html.luma-active #playlist ytd-playlist-panel-video-renderer[selected],
+html.luma-active #playlist #header-contents,
+html.luma-active
+  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]
+  #content,
+html.luma-active
+  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]
+  ytd-engagement-panel-title-header-renderer
+  #header,
+html.luma-active .ytSearchboxComponentInputBoxDark,
+html.luma-active .ytSearchboxComponentSearchButtonDark,
+html.luma-active
+  ytd-popup-container
+  tp-yt-iron-dropdown[opened]
+  #contentWrapper,
+html.luma-active ytd-popup-container ytd-multi-page-menu-renderer,
+html.luma-active ytd-popup-container ytd-multi-page-menu-renderer #container,
+html.luma-active ytd-popup-container ytd-notification-menu-renderer,
+html.luma-active ytd-popup-container ytd-notification-menu-renderer #items,
+html.luma-active ytd-popup-container ytd-menu-popup-renderer,
+html.luma-active ytd-popup-container tp-yt-paper-dialog {
+  background: var(--luma-surface) !important;
+  backdrop-filter: blur(var(--luma-surface-blur, 18px));
+  -webkit-backdrop-filter: blur(var(--luma-surface-blur, 18px));
+  border-color: rgba(var(--luma-video-accent, 126, 187, 218), 0.32) !important;
+  transition:
+    background-color 180ms ease,
+    backdrop-filter 180ms ease;
+}
+html.luma-active #guide-content,
+html.luma-active #playlist #items,
+html.luma-active #playlist .header,
+html.luma-active #playlist ytd-playlist-panel-video-renderer[selected],
+html.luma-active
+  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]
+  #content,
+html.luma-active
+  ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-searchable-transcript"]
+  ytd-engagement-panel-title-header-renderer
+  #header,
+html.luma-active .ytSearchboxComponentInputBoxDark {
+  background: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.5) !important;
+}
+html.luma-active #playlist .header #header-contents {
+  background: transparent !important;
+}
+html.luma-active #playlist ytd-playlist-panel-video-renderer[selected] {
+  box-shadow: inset 3px 0 0 rgba(var(--luma-video-accent, 126, 187, 218), 0.8);
+}
+html.luma-active #primary #below {
+  border-radius: 16px;
+  margin-top: 12px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+html.luma-active #secondary-inner {
+  border-radius: 18px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+html.luma-active ytd-watch-metadata #description.item {
+  border-radius: 12px;
+  box-sizing: border-box;
+  background-color: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.32) !important;
+  transition:
+    background-color 180ms ease,
+    backdrop-filter 180ms ease;
+}
+html.luma-active ytd-watch-metadata #description.item:hover,
+html.luma-active ytd-watch-metadata #description.item:focus-within {
+  background-color: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.5) !important;
+  backdrop-filter: blur(var(--luma-surface-blur, 18px));
+  -webkit-backdrop-filter: blur(var(--luma-surface-blur, 18px));
+}
+.luma-fullscreen .html5-video-container,
+.luma-fullscreen .ytp-chrome-bottom,
+.luma-fullscreen .ytp-chrome-top,
+.luma-fullscreen .ytp-caption-window-container {
+  z-index: 2 !important;
+}
+.luma-fullscreen {
+  background: transparent !important;
+}
+`;
 
   // src/shared/settings.ts
   var DEFAULTS = {
@@ -589,7 +717,18 @@
   };
 
   // src/content/youtube-adapter.ts
-  function findPlayer(doc) {
+  function findPlayer(doc, pathname = doc.defaultView?.location.pathname ?? "/watch") {
+    if (pathname.startsWith("/shorts/")) {
+      const host2 = doc.querySelector("#shorts-player");
+      const video2 = host2?.querySelector(
+        "video.html5-main-video"
+      );
+      return video2 && host2 ? { video: video2, host: host2 } : null;
+    }
+    if (pathname === "/") {
+      return null;
+    }
+    if (pathname !== "/watch") return null;
     const main = doc.querySelector(
       "#movie_player video.html5-main-video"
     ) ?? doc.querySelector("#movie_player video");
@@ -669,7 +808,7 @@
         passive: true
       });
       this.observer = new MutationObserver((records) => {
-        const relevant = "video,#movie_player,ytd-watch-flexy";
+        const relevant = "video,#movie_player,#shorts-player,#miniplayer,ytd-miniplayer,ytd-watch-flexy";
         if (!records.some(
           (r) => Array.from(r.addedNodes).concat(Array.from(r.removedNodes)).some(
             (n) => n instanceof Element && !n.closest("[data-luma-root]") && (n.matches(relevant) || n.querySelector(relevant))
@@ -686,20 +825,37 @@
       this.reconcile();
     }
     reconcile() {
-      if (location.pathname !== "/watch") {
+      const pathname = location.pathname;
+      const isHome = pathname === "/";
+      const isSupported = isHome || pathname === "/watch" || pathname.startsWith("/shorts/");
+      if (!isSupported) {
         this.detach();
         this.status.publish({ ...this.status.current, state: "idle" });
         return;
       }
-      const target = findPlayer(document);
+      const target = findPlayer(document, pathname);
       if (!target) {
-        this.detach();
+        const keepPageSurface = isHome && this.settings.enabled;
+        if (this.video || this.renderer || !keepPageSurface && document.documentElement.classList.contains("luma-active"))
+          this.detach(keepPageSurface);
+        if (isHome && this.settings.enabled) {
+          if (this.status.current.accent.some(
+            (channel, i) => channel !== [126, 187, 218][i]
+          ))
+            this.status.publish({
+              ...this.status.current,
+              state: "idle",
+              accent: [126, 187, 218]
+            });
+          document.documentElement.classList.add("luma-active");
+          this.updateSurface();
+        }
         this.status.publish({ ...this.status.current, state: "idle" });
         return;
       }
       const fullscreen = document.fullscreenElement;
       const canvasHost = fullscreen ?? document.body;
-      if (target.video !== this.video || canvasHost !== this.renderHost) {
+      if (target.video !== this.video || target.host !== this.host || canvasHost !== this.renderHost) {
         this.detach();
         this.video = target.video;
         this.host = target.host;
@@ -880,10 +1036,14 @@
       if (this.renderer) this.updateSurface();
       if (this.video) this.renderer?.resize(this.video.getBoundingClientRect());
     }
-    removeRenderer() {
+    removeRenderer(preserveSurface = false) {
       this.surfaceKey = "";
       this.renderer?.destroy();
       this.renderer = void 0;
+      if (preserveSurface) {
+        this.renderHost?.classList.remove("luma-fullscreen");
+        return;
+      }
       document.documentElement.classList.remove("luma-active");
       document.documentElement.style.removeProperty("--luma-surface");
       document.documentElement.style.removeProperty("--luma-surface-rgb");
@@ -892,9 +1052,9 @@
       document.documentElement.style.removeProperty("--luma-surface-blur");
       this.renderHost?.classList.remove("luma-fullscreen");
     }
-    detach() {
+    detach(preserveSurface = false) {
       this.scheduler.destroy();
-      this.removeRenderer();
+      this.removeRenderer(preserveSurface);
       this.binding?.abort();
       this.resize?.disconnect();
       this.intersection?.disconnect();
@@ -1004,6 +1164,7 @@
     }
     async patch(patch) {
       await this.get();
+      const previous = normalizeSettings(this.state);
       const next = normalizeSettings(merge(this.state, patch));
       if (JSON.stringify(next) !== JSON.stringify(this.state)) {
         this.state = next;
@@ -1018,7 +1179,15 @@
       const write = this.writeQueue.catch(() => {
       }).then(() => this.backend.write(values2));
       this.writeQueue = write;
-      await write;
+      try {
+        await write;
+      } catch (error) {
+        if (JSON.stringify(this.state) === JSON.stringify(next)) {
+          this.state = previous;
+          this.emit();
+        }
+        throw error;
+      }
     }
     preview(patch) {
       if (!this.loaded) this.pending = merge(this.pending, patch);
@@ -1044,7 +1213,7 @@
     }
   };
 
-  // raw-css:C:\Users\Thanh\Documents\Codex\2026-10-03\ha\work\implementation\src\ui\glass.css
+  // raw-css:C:\Users\Thanh\Documents\Codex\2026-10-03\ha\outputs\github-pages\luma-ambient-youtube\src\ui\glass.css
   var glass_default = ':host {\n  all: initial;\n  color-scheme: dark;\n}\n.luma-panel,\n.luma-float {\n  --luma-text: #f5f7fa;\n  --luma-muted: #c6ceda;\n  --luma-border: #aab5c3;\n  --luma-accent: var(--luma-highlight, #c6e0ec);\n  font-family: "Aptos", "Segoe UI", sans-serif;\n  font-size: 14px;\n  line-height: 1.5;\n  color: var(--luma-text);\n  color-scheme: dark;\n  box-sizing: border-box;\n}\n.luma-panel *,\n.luma-float * {\n  box-sizing: border-box;\n}\n.luma-panel {\n  width: 360px;\n  max-width: 100%;\n  max-height: calc(100vh - 16px);\n  overflow-y: auto;\n  overscroll-behavior: contain;\n  scrollbar-width: thin;\n  scrollbar-color: rgba(198, 206, 218, 0.6) transparent;\n  padding: 24px 22px 18px;\n  border: 1px solid rgba(222, 237, 255, 0.38);\n  border-radius: 26px;\n  background:\n    linear-gradient(155deg, rgba(215, 237, 255, 0.055), transparent 40%),\n    rgba(var(--luma-surface-rgb, 56, 64, 68), var(--luma-glass-alpha, 0.92));\n  backdrop-filter: blur(var(--luma-glass-blur, 18px)) saturate(120%);\n  -webkit-backdrop-filter: blur(var(--luma-glass-blur, 18px)) saturate(120%);\n  box-shadow:\n    0 22px 70px #0007,\n    inset 0 1px 0 #fff3;\n  position: relative;\n  isolation: isolate;\n}\n.luma-panel::before {\n  content: "";\n  pointer-events: none;\n  position: absolute;\n  top: 0;\n  left: 24px;\n  right: 50px;\n  height: 1px;\n  background: linear-gradient(90deg, transparent, #f0fcffbd, transparent);\n}\n.luma-panel button,\n.luma-panel select,\n.luma-float button {\n  font: inherit;\n  color: inherit;\n  cursor: pointer;\n}\n.luma-panel button,\n.luma-float button {\n  border: 0;\n  background: none;\n}\n.luma-panel button:focus-visible,\n.luma-panel input:focus-visible,\n.luma-panel select:focus-visible,\n.luma-panel summary:focus-visible,\n.luma-float button:focus-visible {\n  outline: 2px solid #b6edf4;\n  outline-offset: 4px;\n}\n.luma-brand-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 22px;\n}\n.luma-brand {\n  font-family: Georgia, serif;\n  font-size: 31px;\n  line-height: 1;\n  letter-spacing: -1.8px;\n  color: #f5f7fa;\n  font-style: italic;\n}\n.luma-brand-row small {\n  letter-spacing: 2.2px;\n  font-size: 10px;\n  color: var(--luma-muted);\n  text-transform: uppercase;\n  padding-top: 6px;\n  display: block;\n}\n.luma-version {\n  font-size: 11px;\n  letter-spacing: 1px;\n  color: var(--luma-muted);\n}\n.luma-switch-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 16px;\n}\n.luma-switch-row strong {\n  font-size: 16px;\n  font-weight: 600;\n  display: block;\n  letter-spacing: -0.25px;\n}\n.luma-caption {\n  font-size: 12px;\n  color: var(--luma-muted);\n  margin: 3px 0 0;\n}\n.luma-switch {\n  position: relative;\n  display: inline-flex;\n  flex-shrink: 0;\n  width: 48px;\n  height: 28px;\n}\n.luma-switch input {\n  appearance: none;\n  margin: 0;\n  width: 100%;\n  height: 100%;\n  border-radius: 20px;\n  background: rgba(var(--luma-surface-rgb, 56, 64, 68), 1);\n  border: 1px solid var(--luma-border);\n  cursor: pointer;\n  transition: background 180ms;\n}\n.luma-switch input:checked {\n  background: var(--luma-accent);\n  border-color: var(--luma-accent);\n}\n.luma-switch input::after {\n  content: "";\n  position: absolute;\n  top: 4px;\n  left: 4px;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  background: #f5f7fa;\n  box-shadow: 0 1px 5px #0006;\n  transition: transform 180ms;\n}\n.luma-switch input:checked::after {\n  transform: translateX(20px);\n  background: #13212a;\n}\n.luma-scene {\n  position: relative;\n  height: 110px;\n  margin: 22px 0 16px;\n  overflow: hidden;\n  border-radius: 16px;\n  background:\n    radial-gradient(\n      ellipse at 22% 60%,\n      rgba(var(--luma-video-accent, 81, 164, 192), 0.65),\n      transparent 66%\n    ),\n    radial-gradient(\n      ellipse at 86% 60%,\n      rgba(var(--luma-video-accent, 81, 164, 192), 0.35),\n      transparent 65%\n    ),\n    rgb(var(--luma-surface-rgb, 56, 64, 68));\n  display: grid;\n  place-items: center;\n}\n.luma-screen {\n  width: 123px;\n  height: 69px;\n  border-radius: 5px;\n  background: linear-gradient(\n    140deg,\n    rgba(var(--luma-video-accent, 81, 164, 192), 0.35),\n    rgb(var(--luma-surface-rgb, 56, 64, 68)) 40%,\n    rgba(var(--luma-video-accent, 81, 164, 192), 0.45) 65%,\n    rgba(var(--luma-video-accent, 81, 164, 192), 0.7)\n  );\n  box-shadow:\n    0 0 26px rgba(var(--luma-video-accent, 81, 164, 192), 0.55),\n    0 8px 16px #0009;\n  display: grid;\n  place-items: center;\n  border: 1px solid #b0d4e54d;\n}\n.luma-screen svg {\n  width: 20px;\n  height: 20px;\n  fill: #f5f7fa;\n}\n.luma-scene-label {\n  position: absolute;\n  bottom: 7px;\n  left: 12px;\n  font-size: 10px;\n  letter-spacing: 1.5px;\n  color: #e0e8ef;\n  text-transform: uppercase;\n}\n.luma-badge {\n  position: absolute;\n  right: 10px;\n  top: 9px;\n  color: #f5f7fa;\n  background: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.92);\n  padding: 3px 7px;\n  border-radius: 5px;\n  font-size: 10px;\n  letter-spacing: 0.6px;\n}\n.luma-label {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  font-size: 12px;\n  color: var(--luma-muted);\n  margin-bottom: 9px;\n}\n.luma-label output {\n  font-variant-numeric: tabular-nums;\n  color: var(--luma-text);\n}\n.luma-presets {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 5px;\n  padding: 4px;\n  border-radius: 14px;\n  background: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.92);\n  border: 1px solid #607186;\n}\n.luma-presets button {\n  font-size: 12px;\n  padding: 9px 4px;\n  border-radius: 10px;\n  color: #d5dde7;\n  transition:\n    background 180ms,\n    color 180ms;\n}\n.luma-presets button[aria-pressed="true"] {\n  background: var(--luma-accent);\n  color: #10222c;\n  box-shadow: 0 2px 7px #0003;\n  font-weight: 600;\n}\n.luma-presets button:hover:not([aria-pressed="true"]) {\n  background: #ffffff14;\n}\n.luma-intensity {\n  margin-top: 20px;\n}\n.luma-panel input[type="range"] {\n  appearance: none;\n  width: 100%;\n  height: 5px;\n  display: block;\n  margin: 15px 0;\n  border-radius: 5px;\n  background: #728293;\n  accent-color: #b6edf4;\n  cursor: pointer;\n}\n.luma-panel input[type="range"]::-webkit-slider-thumb {\n  appearance: none;\n  width: 18px;\n  height: 18px;\n  border-radius: 50%;\n  background: var(--luma-accent);\n  border: 3px solid rgb(var(--luma-surface-rgb, 56, 64, 68));\n  box-shadow: 0 0 0 1px var(--luma-accent);\n}\n.luma-range-extents {\n  display: flex;\n  justify-content: space-between;\n  color: var(--luma-muted);\n  font-size: 11px;\n  margin-top: -3px;\n}\n.luma-auto {\n  width: 100%;\n  margin-top: 20px !important;\n  padding: 11px !important;\n  border: 1px solid var(--luma-border) !important;\n  border-radius: 12px;\n  font-size: 13px !important;\n  text-align: center;\n  background: #b6edf40a !important;\n  transition: background 180ms;\n}\n.luma-auto:hover {\n  background: #b6edf41a !important;\n}\n.luma-auto span {\n  margin-right: 6px;\n  color: #b6edf4;\n}\n.luma-note {\n  margin: 7px 0 18px;\n  font-size: 11px;\n  color: var(--luma-muted);\n  text-align: center;\n}\n.luma-advanced {\n  border-top: 1px solid #ffffff30;\n  padding-top: 14px;\n}\n.luma-panel summary {\n  cursor: pointer;\n  font-weight: 600;\n  list-style: none;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  min-height: 30px;\n}\n.luma-panel summary::after {\n  content: "+";\n  color: #c6ceda;\n  font-size: 20px;\n  font-weight: 400;\n}\n.luma-panel details[open] > summary::after {\n  content: "\u2212";\n}\n.luma-pro-group {\n  margin: 17px 0 22px;\n}\n.luma-pro-group h3 {\n  font-size: 10px;\n  text-transform: uppercase;\n  letter-spacing: 1.7px;\n  margin: 0 0 14px;\n  color: var(--luma-accent);\n}\n.luma-field {\n  margin: 13px 0 17px;\n}\n.luma-field p {\n  font-size: 11px;\n  color: var(--luma-muted);\n  margin: 4px 0;\n}\n.luma-field input[type="range"] {\n  margin: 10px 0;\n}\n.luma-check {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 12px;\n  margin: 10px 0;\n  font-size: 13px;\n  cursor: pointer;\n}\n.luma-check input {\n  width: 16px;\n  height: 16px;\n  accent-color: #b6edf4;\n}\n.luma-directions {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 6px;\n}\n.luma-directions .luma-check {\n  margin: 0;\n  padding: 7px;\n  border: 1px solid #627184;\n  border-radius: 8px;\n  font-size: 12px;\n}\n.luma-panel select {\n  display: block;\n  width: 100%;\n  background: rgb(var(--luma-surface-rgb, 56, 64, 68));\n  border: 1px solid #728293;\n  border-radius: 10px;\n  padding: 9px;\n  font-size: 12px;\n}\n.luma-footer {\n  display: flex;\n  justify-content: space-between;\n  border-top: 1px solid #ffffff30;\n  padding-top: 14px;\n  margin-top: 14px;\n}\n.luma-footer button {\n  font-size: 11px !important;\n  color: var(--luma-muted) !important;\n  padding: 3px 0 !important;\n}\n.luma-footer button:hover {\n  color: #fff !important;\n}\n.luma-privacy {\n  font-size: 11px;\n  color: var(--luma-muted);\n  margin-top: 10px;\n}\n.luma-message {\n  font-size: 12px;\n  color: #f6dca4;\n  margin: 12px 0 4px;\n}\n.luma-retry {\n  border: 1px solid #c6ceda !important;\n  border-radius: 8px;\n  padding: 5px 10px !important;\n  font-size: 12px !important;\n}\n.luma-panel [hidden] {\n  display: none !important;\n}\n.luma-float {\n  display: flex;\n  gap: 2px;\n  align-items: center;\n  padding: 4px;\n  border: 1px solid #d0e2ef73;\n  border-radius: 24px;\n  background: rgba(var(--luma-surface-rgb, 56, 64, 68), 0.98);\n  backdrop-filter: blur(var(--luma-glass-blur, 18px));\n  -webkit-backdrop-filter: blur(var(--luma-glass-blur, 18px));\n  box-shadow:\n    inset 0 1px 0 #fff3,\n    0 6px 22px #0005;\n  opacity: 0.94;\n  transition: opacity 180ms;\n  pointer-events: auto;\n}\n.luma-float:hover,\n.luma-float:focus-within {\n  opacity: 1;\n}\n.luma-float button {\n  min-height: 32px;\n  min-width: 32px;\n  padding: 4px 10px;\n  border-radius: 18px;\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 12px;\n  color: #f5f7fa;\n}\n.luma-float button:hover {\n  background: #ffffff14;\n}\n.luma-float svg {\n  width: 16px;\n  height: 16px;\n  fill: none;\n  stroke: currentColor;\n  stroke-width: 1.6;\n}\n.luma-indicator {\n  width: 5px;\n  height: 5px;\n  background: #b6edf4;\n  border-radius: 50%;\n}\n.luma-float [aria-pressed="false"] .luma-indicator {\n  background: #8994a3;\n}\n.luma-popover {\n  position: fixed;\n  z-index: 2147483001;\n  max-height: calc(100vh - 28px);\n  overflow-y: auto;\n  border-radius: 26px;\n  overscroll-behavior: contain;\n  pointer-events: auto;\n  scrollbar-width: thin;\n  scrollbar-color: rgba(198, 206, 218, 0.6) transparent;\n}\n.luma-popover .luma-panel {\n  box-shadow: none;\n  max-height: none;\n  overflow: visible;\n}\n@supports not (backdrop-filter: blur(1px)) {\n  .luma-panel,\n  .luma-float {\n    background: rgb(var(--luma-surface-rgb, 56, 64, 68));\n  }\n}\n@media (prefers-contrast: more) {\n  .luma-panel,\n  .luma-float {\n    background: rgb(var(--luma-surface-rgb, 56, 64, 68));\n    border-color: #c6ceda;\n  }\n  .luma-caption {\n    color: #e1e6ef;\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .luma-panel *,\n  .luma-float {\n    transition: none !important;\n    animation: none !important;\n  }\n}\n.luma-panel[data-reduced-motion="true"] *,\n.luma-float[data-reduced-motion="true"] {\n  transition: none !important;\n  animation: none !important;\n}\n.luma-player-controls {\n  display: grid;\n  grid-template-columns: repeat(2, 48px);\n  align-items: center;\n  width: 96px;\n  height: 48px;\n  pointer-events: auto;\n}\n.luma-ytp-button {\n  display: grid;\n  place-items: center;\n  width: 48px;\n  height: 48px;\n  padding: 0;\n  border: 0;\n  border-radius: 50%;\n  background: transparent;\n  color: #fff;\n  cursor: pointer;\n}\n.luma-ytp-button:hover,\n.luma-ytp-button:focus-visible {\n  background: #ffffff1f;\n}\n.luma-ytp-button[aria-pressed="false"] {\n  color: #b7bbc3;\n}\n.luma-ytp-button svg {\n  display: block;\n  width: 22px;\n  height: 22px;\n  fill: currentColor;\n  stroke: currentColor;\n  stroke-width: 1.5;\n}\n';
 
   // src/shared/presets.ts
@@ -1424,6 +1593,7 @@
       floating.style.setProperty("--luma-glass-blur", `${s.blur * 0.3}px`);
       floating.dataset.reducedMotion = String(s.reducedMotion === "on");
       toggle.setAttribute("aria-pressed", String(enabled));
+      container.hidden = !s.floatingControl;
       container.style.display = s.floatingControl ? "flex" : "none";
       if (!s.floatingControl) close();
     });
