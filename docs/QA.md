@@ -4,6 +4,7 @@ Ngày: 2026-10-03. Môi trường: Windows, Node.js 24.20.0, Chrome phiên đang
 
 ## Passed
 
+- Lượt làm rõ ambient trên Shorts: `npm run check` đạt 49/49 tests. Các wrapper thực tế của player Shorts được kiểm tra và ép trong suốt để không che canvas ambient; không đổi nền blur nằm bên trong chính video.
 - Lượt giảm lag playlist và bỏ trần FPS: `npm run check` đạt 48/48 tests. Bộ cuộn playlist không còn `backdrop-filter`/transition; scheduler theo từng frame video (`requestVideoFrameCallback`) thay vì timer cap 30 FPS, fallback `requestAnimationFrame`; preset tự hạ độ chi tiết khi máy bận. Đã xác nhận scheduler xử lý 60 frame/giây trong regression test.
 - Lượt sửa độ trễ palette chữ/icon trước đó: palette/status được cập nhật mỗi 100 ms thay cho 750 ms; giới hạn FPS sau đó được bỏ trong lượt tối ưu playlist.
 - Lượt sửa Home/Shorts: `npm run check` đạt 48/48 tests (sau đó bổ sung test đảm bảo Home không lấy mẫu miniplayer), TypeScript, MV3 build và package validation. Watch và Shorts (`#shorts-player`) đồng bộ màu video lên trang và sidebar. Home dùng nền ambient tĩnh với accent trung tính; không phân tích video feed, preview hay miniplayer.

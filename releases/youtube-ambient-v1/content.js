@@ -34,7 +34,11 @@ html.luma-active ytd-browse,
 html.luma-active ytd-browse #content,
 html.luma-active ytd-shorts,
 html.luma-active ytd-shorts #content,
-html.luma-active #shorts-container {
+html.luma-active #shorts-container,
+html.luma-active #shorts-inner-container,
+html.luma-active ytd-reel-video-renderer,
+html.luma-active ytd-reel-video-renderer .short-video-container,
+html.luma-active ytd-reel-video-renderer .player-container {
   background: transparent !important;
 }
 html.luma-active #cinematics {
