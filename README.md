@@ -4,10 +4,11 @@ Chrome Manifest V3 extension tạo ánh sáng ambient đồng bộ với video Y
 
 - [Chính sách quyền riêng tư](https://dt418.github.io/luma-ambient-youtube/privacy-policy.html)
 - [Trang dự án](https://dt418.github.io/luma-ambient-youtube/)
-- [Gói cài đặt v1.0.0](releases/luma-youtube-ambient-v1.zip)
+- [Gói cài đặt v1.0.1](releases/luma-youtube-ambient-v1.zip)
 - [Source ZIP](releases/luma-youtube-ambient-v1-source.zip)
 - [Thông tin Chrome Web Store](store-listing-vi.md)
 - [Kết quả kiểm thử](docs/QA.md)
+- [Lịch sử thay đổi](CHANGELOG.md)
 
 ## Cài đặt từ ZIP
 

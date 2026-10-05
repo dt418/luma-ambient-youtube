@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Luma — Ambient cho YouTube",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ánh sáng theo video, điều khiển kính dễ đọc. Riêng tư, nhẹ và hoàn toàn trên máy của bạn.",
   "permissions": ["storage"],
   "action": {

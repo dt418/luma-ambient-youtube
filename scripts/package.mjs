@@ -33,6 +33,7 @@ for (const file of [
   "tsconfig.json",
   ".gitignore",
   "README.md",
+  "CHANGELOG.md",
 ])
   sourceFiles[file] = new Uint8Array(await readFile(file));
 await writeFile(
